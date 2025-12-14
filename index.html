@@ -968,9 +968,18 @@
             edgeLearning.setAttribute('stroke', edgeColor);
             edgeRunning.setAttribute('stroke', edgeColor);
 
-            // Learning diagram shows slider values
-            piValueLearning.textContent = formatNum(sliderPi);
-            pjValueLearning.textContent = formatNum(sliderPj);
+            // Learning diagram shows pattern values if exactly one pattern is selected
+            // Otherwise shows slider values (for exploration mode)
+            if (storedPatterns.length === 1) {
+                piValueLearning.textContent = formatNumSimple(storedPatterns[0].pi);
+                pjValueLearning.textContent = formatNumSimple(storedPatterns[0].pj);
+            } else if (storedPatterns.length > 1) {
+                piValueLearning.textContent = '...';
+                pjValueLearning.textContent = '...';
+            } else {
+                piValueLearning.textContent = '−';
+                pjValueLearning.textContent = '−';
+            }
 
             // Running diagram shows current state
             piValueRunning.textContent = formatNumSimple(currentState.pi);
